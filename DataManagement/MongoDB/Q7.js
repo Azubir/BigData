@@ -1,0 +1,1 @@
+printjson(db.teams.aggregate([{ $sort : { ratio : -1 } },{$limit: 1},{$project: {team: 1,goalsFor: 1, goalsAgainst: 1,ratio: {"$cond": [{"$and": [{"$gt": ["$goalsFor", 0]}, {"$gt": ["$goalsAgainst", 0]}]}, { $divide: [ "$goalsFor", "$goalsAgainst" ] }, 0]}}} ]))
